@@ -1,12 +1,11 @@
-// @ts-nocheck cause r3f docs shows onlhy how to create custom types for classes but not for drei shaderMaterial function. 
-
+// @ts-nocheck
 import React, { useRef, useState } from 'react';
 import { Canvas, useFrame, extend, useThree } from '@react-three/fiber';
-import { OrbitControls } from "@react-three/drei";
+import { OrbitControls, Stats } from "@react-three/drei";
 import { Mesh } from 'three'
 
 import { ColorShiftMaterial } from '../shaders/color-shift';
-
+// import ColorShiftMaterial from '../shaders/color-shift-class';
 extend({ ColorShiftMaterial });
 
 function Box(props) {
@@ -16,7 +15,7 @@ function Box(props) {
   const [hovered, setHover] = useState(false)
   const [active, setActive] = useState(false)
   // Subscribe this component to the render-loop, rotate the mesh every frame
-  useFrame((state, delta) => { if (meshRef.current) meshRef.current.rotation.x += delta})
+  useFrame((state, delta) => { if (meshRef.current) meshRef.current.rotation.x += delta })
   // Return view, these are regular three.js elements expressed in JSX
   return (
     <mesh
@@ -27,7 +26,7 @@ function Box(props) {
       onPointerOver={(event) => setHover(true)}
       onPointerOut={(event) => setHover(false)}>
       <boxGeometry args={[1, 1, 1]} />
-      <colorShiftMaterial key={ColorShiftMaterial.key} color={hovered ? 'hotpink' : 'red'} time={1} />
+      <colorShiftMaterial color={hovered ? 'hotpink' : 'red'} time={1} />
     </mesh>
   )
 }
@@ -40,6 +39,7 @@ export default function R3FApp() {
       <Box position={[-1.2, 0, 0]} />
       <Box position={[1.2, 0, 0]} />
       <OrbitControls />
+      <Stats />
     </Canvas>
   );
 }
