@@ -1,4 +1,4 @@
-// @ts-nocheck
+
 import React, { useRef, useState } from 'react';
 import { Canvas, useFrame, extend, useThree } from '@react-three/fiber';
 import { OrbitControls, Stats } from "@react-three/drei";
@@ -26,7 +26,7 @@ function Box(props) {
       onPointerOver={(event) => setHover(true)}
       onPointerOut={(event) => setHover(false)}>
       <boxGeometry args={[1, 1, 1]} />
-      <colorShiftMaterial color={hovered ? 'hotpink' : 'red'} time={1} />
+      <colorShiftMaterial color={hovered ? 'hotpink' : 'red'} time={0.01} />
     </mesh>
   )
 }

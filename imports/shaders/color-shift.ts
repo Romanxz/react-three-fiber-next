@@ -1,5 +1,5 @@
 import { shaderMaterial } from "@react-three/drei";
-import * as THREE from "three";
+import * as THREE from 'three'
 
 export const ColorShiftMaterial = shaderMaterial(
   { time: 0, color: new THREE.Color(0.2, 0.0, 0.1) },
@@ -17,7 +17,8 @@ export const ColorShiftMaterial = shaderMaterial(
     uniform vec3 color;
     varying vec2 vUv;
     void main() {
-      gl_FragColor.rgba = vec4(0.5 + 0.3 * sin(vUv.yxx + time) + color, 1.0);
+      gl_FragColor.rgba = vec4(0.2 + 0.3 * sin(vUv.yxx + time) + color, 1.0);
     }
   `
 )
+
