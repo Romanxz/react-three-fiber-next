@@ -1,10 +1,17 @@
+// @ts-nocheck cause r3f docs shows onlhy how to create custom types for classes but not for drei shaderMaterial function. 
+
 import React, { useRef, useState } from 'react';
 import { Canvas, useFrame, extend, useThree } from '@react-three/fiber';
 import { OrbitControls } from "@react-three/drei";
+import { Mesh } from 'three'
+
+import { ColorShiftMaterial } from '../shaders/color-shift';
+
+extend({ ColorShiftMaterial });
 
 function Box(props) {
   // This reference will give us direct access to the mesh
-  const meshRef = useRef<any>()
+  const meshRef = useRef<Mesh>(null!)
   // Set up state for the hovered and active state
   const [hovered, setHover] = useState(false)
   const [active, setActive] = useState(false)
@@ -20,7 +27,7 @@ function Box(props) {
       onPointerOver={(event) => setHover(true)}
       onPointerOut={(event) => setHover(false)}>
       <boxGeometry args={[1, 1, 1]} />
-      <meshStandardMaterial color={hovered ? 'hotpink' : 'orange'} />
+      <colorShiftMaterial key={ColorShiftMaterial.key} color={hovered ? 'hotpink' : 'red'} time={1} />
     </mesh>
   )
 }
