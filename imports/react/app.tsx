@@ -8,8 +8,8 @@ export default function R3FApp() {
   return (
     <Canvas style={{ position: 'relative', width: '100vw', height: '100vh', background: 'black' }}>
       <Galaxy 
-        numStars={1000} 
-        starMin={0.25} 
+        numStars={5000} 
+        starMin={0.15} 
         starMax={5} 
         coreXdist={30} 
         coreYdist={30} 

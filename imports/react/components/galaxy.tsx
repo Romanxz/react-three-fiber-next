@@ -1,11 +1,12 @@
 import React, { useMemo, useRef, useState } from 'react';
+import { useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
 import { v4 as uuidv4 } from 'uuid';
+
 import { Star } from './star';
 import { gaussianRandom } from '../../utils/gaussian-random';
 import { starTypes } from '../../utils/star-types';
 import { generateStarType } from '../../utils/generate-star-type';
-import { useFrame, useThree } from '@react-three/fiber';
 import { spiral } from '../../utils/spiral';
 
 export interface IGalaxyProps {
@@ -42,6 +43,7 @@ export function Galaxy(props:IGalaxyProps) {
     armXmean,
     armYmean,
   } = props;
+  const galaxyRef = useRef<THREE.Group>(null!)
   const stars = useMemo(() => {
     let stars: { position: THREE.Vector3; scale: number; color: THREE.Color }[] = [];
     // inner galaxy core
@@ -105,8 +107,10 @@ export function Galaxy(props:IGalaxyProps) {
     return stars;
   }, [props]);
 
+  useFrame((state, delta) => { if (galaxyRef.current) galaxyRef.current.rotation.z -= delta / 100 });
+
   return (
-    <group rotation={new THREE.Euler(90, 0, 0)}>
+    <group ref={galaxyRef} rotation={new THREE.Euler(90, 0, 0)}>
       {stars.map((star) => (
         <Star
           key={uuidv4()}
