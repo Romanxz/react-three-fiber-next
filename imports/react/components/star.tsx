@@ -24,7 +24,7 @@ export function Star({ position, scale, color, starMin, starMax }: IStarProps) {
   const [active, setActive] = useState(false);
 
   useFrame((state, delta) => {
-    let dist = spriteRef.current.position.distanceTo(camera.position) / 250
+    let dist = spriteRef.current.position.distanceTo(camera.position) / 200
     // update star size relative to camera position
     let starSize = dist * scale
     starSize = clamp(starSize, starMin, starMax)
