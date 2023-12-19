@@ -65,7 +65,7 @@ export function Galaxy(props: IGalaxyProps) {
           hazeOpacity={props.hazeOpacity}
         />
       ))}
-      <ambientLight intensity={10} ref={lightRef} />
+      <ambientLight intensity={1} ref={lightRef} />
       {/* {starsRef.current ? <EffectComposer>
         <SelectiveBloom
           lights={[lightRef]}
