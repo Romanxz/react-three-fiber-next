@@ -13,6 +13,7 @@ export default function R3FApp() {
     starSizeMax,
     hazeSizeMin,
     hazeSizeMax,
+    hazeColor,
     hazeOpacity,
     hazeRatio,
     coreXdist,
@@ -39,6 +40,7 @@ export default function R3FApp() {
           starMax={starSizeMax}
           hazeMin={hazeSizeMin}
           hazeMax={hazeSizeMax}
+          hazeColor={hazeColor}
           hazeOpacity={hazeOpacity}
           hazeRatio={hazeRatio}
           coreXdist={coreXdist}

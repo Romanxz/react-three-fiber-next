@@ -4,10 +4,10 @@ import { useControls } from 'leva';
 export function useGalaxyControls() {
   const galaxyControls = useControls({
     numStars: {
-      value: 1000,
+      value: 1500,
       min: 100,
       max: 10000,
-      step: 10,
+      step: 100,
     },
     starSizeMin: {
       value: 0.05,
@@ -33,6 +33,7 @@ export function useGalaxyControls() {
       max: 100.0,
       step: 1.0,
     },
+    hazeColor: "#0082ff",
     hazeOpacity: {
       value: 0.15,
       min: 0,

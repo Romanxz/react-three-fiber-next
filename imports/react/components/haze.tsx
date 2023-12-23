@@ -13,9 +13,10 @@ export interface IHazeProps {
   hazeOpacity: number;
   hazeMin:number;
   hazeMax:number;
+  hazeColor: number | string;
 }
 
-export function Haze({ position, hazeMin, hazeMax, hazeOpacity }: IHazeProps) {
+export function Haze({ position, hazeMin, hazeMax, hazeOpacity, hazeColor }: IHazeProps) {
   const texture = useLoader(TextureLoader, 'textures/feathered60.png');
   const spriteRef = useRef<Sprite>(null!);
   const { camera } = useThree();
@@ -37,7 +38,7 @@ export function Haze({ position, hazeMin, hazeMax, hazeOpacity }: IHazeProps) {
     <sprite layers={DEFAULT_LAYER} ref={spriteRef} position={position}>
       <spriteMaterial
         map={texture}
-        color={new Color(0x0082ff)}
+        color={new Color(hazeColor)}
         depthTest={false}
         depthWrite={false}
       />

@@ -11,6 +11,7 @@ export interface IGalaxyGeneratorProps {
   starMax: number;
   hazeMin: number;
   hazeMax: number;
+  hazeColor: number | string;
   hazeOpacity: number;
   hazeRatio: number;
   coreXdist: number;
@@ -27,7 +28,7 @@ export interface IGalaxyGeneratorProps {
 }
 
 export function GalaxyGenerator(props: IGalaxyGeneratorProps) {
-  const { starMin, starMax, hazeMin, hazeMax, hazeOpacity } = props;
+  const { starMin, starMax, hazeMin, hazeMax, hazeOpacity, hazeColor } = props;
   const stars = useStars(props);
   const haze = useHaze(props);
 
@@ -40,6 +41,7 @@ export function GalaxyGenerator(props: IGalaxyGeneratorProps) {
         starMax={starMax}
         hazeMin={hazeMin}
         hazeMax={hazeMax}
+        hazeColor={hazeColor}
         hazeOpacity={hazeOpacity}
       />
     </>

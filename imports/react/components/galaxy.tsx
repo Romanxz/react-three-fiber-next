@@ -15,10 +15,11 @@ export interface IGalaxyProps {
   starMax: number;
   hazeMin: number;
   hazeMax: number;
+  hazeColor: number | string;
   hazeOpacity: number;
 }
 
-export function Galaxy({ stars, haze, starMin, starMax, hazeMin, hazeMax, hazeOpacity }: IGalaxyProps) {
+export function Galaxy({ stars, haze, starMin, starMax, hazeMin, hazeMax, hazeOpacity, hazeColor }: IGalaxyProps) {
   const galaxyRef = useRef<THREE.Group>(null!);
   const starsRef = useRef<THREE.Group>(null!);
   const lightRef = useRef<THREE.AmbientLight>(null!);
@@ -43,7 +44,7 @@ export function Galaxy({ stars, haze, starMin, starMax, hazeMin, hazeMax, hazeOp
       </Select>
       <group>
         {haze.map((haze) => (
-          <Haze key={uuidv4()} position={haze.position} hazeMin={hazeMin} hazeMax={hazeMax} hazeOpacity={hazeOpacity} />
+          <Haze key={uuidv4()} position={haze.position} hazeMin={hazeMin} hazeMax={hazeMax} hazeOpacity={hazeOpacity} hazeColor={hazeColor} />
         ))}
       </group>
     </group>
