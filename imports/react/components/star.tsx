@@ -17,7 +17,7 @@ export interface IStarProps {
 }
 
 export function Star({ position, scale, color, starMin, starMax }: IStarProps) {
-  const texture = useLoader(TextureLoader, 'textures/sprite120.png');
+  const texture = useLoader(TextureLoader, `${process.env.GH_PAGES_PATH_PREFIX || ""}textures/sprite120.png`);
   const starSpriteRef = useRef<Sprite>(null!);
   const starMeshRef = useRef<Mesh>(null!);
   const { camera } = useThree();

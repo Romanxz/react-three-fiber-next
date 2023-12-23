@@ -17,7 +17,7 @@ export interface IHazeProps {
 }
 
 export function Haze({ position, hazeMin, hazeMax, hazeOpacity, hazeColor }: IHazeProps) {
-  const texture = useLoader(TextureLoader, 'textures/feathered60.png');
+  const texture = useLoader(TextureLoader, `${process.env.GH_PAGES_PATH_PREFIX || ""}textures/feathered60.png`);
   const spriteRef = useRef<Sprite>(null!);
   const { camera } = useThree();
 
