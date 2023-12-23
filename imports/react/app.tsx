@@ -1,39 +1,63 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, Suspense } from 'react';
 import { Canvas, useFrame, extend, useThree } from '@react-three/fiber';
-import { EffectComposer, Bloom } from '@react-three/postprocessing';
-import { BlurPass, Resizer, KernelSize, Resolution } from 'postprocessing';
-import { CameraControls, FlyControls, OrbitControls, PointerLockControls, Stats } from '@react-three/drei';
-import { Effects } from './components/effects';
-import { Galaxy } from './components/galaxy';
+import { CameraControls, Stats } from '@react-three/drei';
+import { useControls } from 'leva';
+import { FX } from './components/effects';
+import { GalaxyGenerator } from './components/galaxy-generator';
+import { useGalaxyControls } from './hooks/use-galaxy-controls';
 
 export default function R3FApp() {
+  const {
+    numStars,
+    starSizeMin,
+    starSizeMax,
+    hazeSizeMin,
+    hazeSizeMax,
+    hazeOpacity,
+    hazeRatio,
+    coreXdist,
+    coreYdist,
+    thickness,
+    outerCoreXdist,
+    outerCoreYdist,
+    numArms,
+    spiralForce,
+    armXdist,
+    armYdist,
+    armXmean,
+    armYmean,
+  } = useGalaxyControls();
   return (
-    <Canvas style={{ position: 'relative', width: '100vw', height: '100vh', background: 'black' }}>
-      <Galaxy
-        numStars={2000}
-        starMin={0.15}
-        starMax={5}
-        hazeMin={20.0}
-        hazeMax={50.0}
-        hazeOpacity={0.2}
-        hazeRatio={0.5}
-        coreXdist={30}
-        coreYdist={30}
-        thickness={7}
-        outerCoreXdist={60}
-        outerCoreYdist={60}
-        arms={2.0}
-        spiralForce={2.5}
-        armXdist={60}
-        armYdist={30}
-        armXmean={150}
-        armYmean={80}
-      />
-      {/* <CameraControls makeDefault /> */}
+    <Canvas
+      gl={{ logarithmicDepthBuffer: true }}
+      style={{ position: 'relative', width: '100vw', height: '100vh', background: 'black' }}
+    >
+      <Suspense fallback={null}>
+        <GalaxyGenerator
+          numStars={numStars}
+          starMin={starSizeMin}
+          starMax={starSizeMax}
+          hazeMin={hazeSizeMin}
+          hazeMax={hazeSizeMax}
+          hazeOpacity={hazeOpacity}
+          hazeRatio={hazeRatio}
+          coreXdist={coreXdist}
+          coreYdist={coreYdist}
+          thickness={thickness}
+          outerCoreXdist={outerCoreXdist}
+          outerCoreYdist={outerCoreYdist}
+          arms={numArms}
+          spiralForce={spiralForce}
+          armXdist={armXdist}
+          armYdist={armYdist}
+          armXmean={armXmean}
+          armYmean={armYmean}
+        />
+      </Suspense>
       <CameraControls />
       <axesHelper />
       <Stats />
-      {/* <Effects /> */}
+      <FX />
     </Canvas>
   );
 }

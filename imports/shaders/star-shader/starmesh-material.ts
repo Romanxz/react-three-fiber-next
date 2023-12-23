@@ -1,7 +1,7 @@
 import { shaderMaterial } from "@react-three/drei";
 import * as THREE from 'three'
 
-export const ColorShiftMaterial = shaderMaterial(
+export const StarMeshMaterial = shaderMaterial(
   { time: 0, color: new THREE.Color(0.2, 0.0, 0.1) },
   // vertex shader
   /*glsl*/`

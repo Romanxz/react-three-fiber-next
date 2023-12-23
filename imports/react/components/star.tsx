@@ -4,8 +4,9 @@ import { Sprite, Vector3, Color, Mesh } from 'three';
 import { TextureLoader } from 'three/src/loaders/TextureLoader';
 import { clamp } from '../../utils/clamp';
 
-// import { ColorShiftMaterial } from '../../shaders/color-shift';
-// extend({ ColorShiftMaterial });
+import { StarMeshMaterial } from '../../shaders/star-shader/starmesh-material';
+import { OCCLUSION_LAYER } from './effects';
+extend({ StarMeshMaterial });
 
 export interface IStarProps {
   position: Vector3;
@@ -25,7 +26,7 @@ export function Star({ position, scale, color, starMin, starMax }: IStarProps) {
   const [isMesh, setMesh] = useState(false);
 
   useFrame((state, delta) => {
-    let distanceToCamera = starSpriteRef.current.position.distanceTo(camera.position);
+    let distanceToCamera = starSpriteRef.current.getWorldPosition(new Vector3()).distanceTo(camera.position);
     // update star size relative to camera position
     let starSize = (distanceToCamera / 250) * scale;
     starSize = clamp(starSize, starMin, starMax);
@@ -41,12 +42,12 @@ export function Star({ position, scale, color, starMin, starMax }: IStarProps) {
 
   return (
     <>
-      <mesh scale={scale} ref={starMeshRef} position={position} visible={isMesh}>
+      <mesh layers={OCCLUSION_LAYER} scale={scale} ref={starMeshRef} position={position} visible={isMesh}>
         <sphereGeometry />
-        <meshStandardMaterial color={color} />
+        <meshStandardMaterial emissive={color} emissiveIntensity={2} color={color} toneMapped={false} />
       </mesh>
-      <sprite scale={scale} ref={starSpriteRef} position={position} visible={!isMesh}>
-        <spriteMaterial attach="material" map={texture} color={color} />
+      <sprite layers={OCCLUSION_LAYER} scale={scale} ref={starSpriteRef} position={position} visible={!isMesh}>
+        <spriteMaterial map={texture} color={color} toneMapped={false} />
       </sprite>
     </>
   );

@@ -1,15 +1,13 @@
 import React, { useMemo } from 'react';
 import * as THREE from 'three';
 import { gaussianRandom } from '../../utils/gaussian-random';
-import { starTypes } from '../../utils/star-types';
-import { generateStarType } from '../../utils/generate-star-type';
 import { spiral } from '../../utils/spiral';
-import { clamp } from '../../utils/clamp';
 
 export interface IUseHazeProps {
   numStars: number;
   hazeMin: number;
   hazeMax: number;
+  hazeRatio: number;
   coreXdist: number;
   coreYdist: number;
   outerCoreXdist: number;
@@ -26,6 +24,7 @@ export interface IUseHazeProps {
 export function useHaze(hazeProps: IUseHazeProps) {
   const {
     numStars,
+    hazeRatio,
     coreXdist,
     coreYdist,
     outerCoreXdist,
@@ -38,10 +37,13 @@ export function useHaze(hazeProps: IUseHazeProps) {
     armXmean,
     armYmean,
   } = hazeProps;
+
+  const numHaze = numStars * hazeRatio;
+
   const haze = useMemo(() => {
     let haze: { position: THREE.Vector3 }[] = [];
     // inner galaxy core
-    for (let i = 0; i < numStars / 2; i++) {
+    for (let i = 0; i < numHaze / 3; i++) {
       const position = new THREE.Vector3(
         gaussianRandom(0, coreXdist),
         gaussianRandom(0, coreYdist),
@@ -50,7 +52,7 @@ export function useHaze(hazeProps: IUseHazeProps) {
       haze.push({ position });
     }
     // outer galaxy core
-    for (let i = 0; i < numStars / 3; i++) {
+    for (let i = 0; i < numHaze / 10; i++) {
       const position = new THREE.Vector3(
         gaussianRandom(0, outerCoreXdist),
         gaussianRandom(0, outerCoreYdist),
@@ -60,7 +62,7 @@ export function useHaze(hazeProps: IUseHazeProps) {
     }
     // galaxy spiral arms
     for (let j = 0; j < arms; j++) {
-      for (let i = 0; i < numStars / 3; i++) {
+      for (let i = 0; i < numHaze / 3; i++) {
         const position = spiral(
           gaussianRandom(armXmean, armXdist),
           gaussianRandom(armYmean, armYdist),

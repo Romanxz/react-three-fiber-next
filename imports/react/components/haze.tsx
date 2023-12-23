@@ -3,6 +3,7 @@ import { useFrame, useThree, extend, useLoader } from '@react-three/fiber';
 import { Sprite, Vector3, Color } from 'three';
 import { TextureLoader } from 'three/src/loaders/TextureLoader';
 import { clamp } from 'three/src/math/MathUtils';
+import { DEFAULT_LAYER } from './effects';
 
 // import { ColorShiftMaterial } from '../../shaders/color-shift';
 // extend({ ColorShiftMaterial });
@@ -33,9 +34,8 @@ export function Haze({ position, hazeMin, hazeMax, hazeOpacity }: IHazeProps) {
   });
 
   return (
-    <sprite ref={spriteRef} position={position}>
+    <sprite layers={DEFAULT_LAYER} ref={spriteRef} position={position}>
       <spriteMaterial
-        attach="material"
         map={texture}
         color={new Color(0x0082ff)}
         depthTest={false}

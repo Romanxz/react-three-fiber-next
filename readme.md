@@ -2,3 +2,8 @@
 
 # R3F Experiments
 
+## Procedural galaxy based on this native THREEjs tutorial project: 
+
+https://www.youtube.com/watch?v=rd_VCToelw4
+
+https://github.com/pickles976/GalaxyThreeJS
