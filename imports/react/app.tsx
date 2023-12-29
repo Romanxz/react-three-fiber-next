@@ -5,6 +5,8 @@ import { useControls } from 'leva';
 import { FX } from './components/effects';
 import { GalaxyGenerator } from './components/galaxy-generator';
 import { useGalaxyControls } from './hooks/use-galaxy-controls';
+import { Star } from './components/star';
+import { Color, Vector3 } from 'three';
 
 export default function R3FApp() {
   const {
@@ -31,6 +33,7 @@ export default function R3FApp() {
   return (
     <Canvas
       gl={{ logarithmicDepthBuffer: true }}
+      camera={{ near: 0.1, far: 10000 }}
       style={{ position: 'relative', width: '100vw', height: '100vh', background: 'black' }}
     >
       <Suspense fallback={null}>
@@ -56,8 +59,9 @@ export default function R3FApp() {
           armYmean={armYmean}
         />
       </Suspense>
+      {/* <Star position={new Vector3(0,0,0)} scale={1} starMin={1} starMax={1} color={new Color("#16d1ff")} /> */}
       <CameraControls />
-      <axesHelper />
+      {/* <axesHelper /> */}
       <Stats />
       <FX />
     </Canvas>

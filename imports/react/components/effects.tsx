@@ -25,7 +25,7 @@ export function FX() {
         <Bloom
           intensity={1} // The bloom intensity.
           // blurPass={undefined} // A blur pass.
-          kernelSize={KernelSize.SMALL} // blur kernel size
+          kernelSize={KernelSize.MEDIUM} // blur kernel size
           luminanceThreshold={0.4} // luminance threshold. Raise this value to mask out darker elements in the scene.
           luminanceSmoothing={0.5} // smoothness of the luminance threshold. Range is [0, 1]
           mipmapBlur={false} // Enables or disables mipmap blur.
